@@ -24,7 +24,6 @@ feign:
     url: https://jsonplaceholder.typicode.com/
     users: users
     users-albums: users/{userId}/albums
-    users-photos: users/{userId}/photos
     photos: photos
     albums: albums
     comments: comments

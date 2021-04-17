@@ -18,7 +18,7 @@ public class FindUsersByAlbumAndPrivilegeUseCase implements FindAlbumsByUserQuer
 
     @Override
     public List<Album> execute(Long userId) {
-        return albumGateway.findAll();
+        return albumGateway.findByUserId(userId);
     }
 
 }

@@ -7,7 +7,5 @@ import java.util.List;
 public interface PhotoGateway {
 
     List<Photo> findAll();
-
-    List<Photo> findByUserId(Long userId);
     
 }

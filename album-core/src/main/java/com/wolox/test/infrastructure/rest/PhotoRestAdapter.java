@@ -26,12 +26,4 @@ public class PhotoRestAdapter implements PhotoGateway {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<Photo> findByUserId(Long userId) {
-        return photoFeignClient.findByUser(userId)
-                .parallelStream()
-                .map(PhotoRestResponse::toDomain)
-                .collect(Collectors.toList());
-    }
-
 }
