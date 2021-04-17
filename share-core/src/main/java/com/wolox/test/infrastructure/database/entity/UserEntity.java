@@ -1,25 +1,37 @@
 package com.wolox.test.infrastructure.database.entity;
 
-import lombok.Data;
+import com.wolox.test.domain.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+@Builder
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "users")
-@Data
 public class UserEntity {
 
     @Id
-    @Column(name = "user_id")
     private Long id;
-
     private String name;
-
     private String username;
 
-    private String password;
+    public static UserEntity of(User user) {
+        return UserEntity
+                .builder()
+                .id(user.getId())
+                .name(user.getName())
+                .username(user.getUsername())
+                .build();
+    }
 
 }

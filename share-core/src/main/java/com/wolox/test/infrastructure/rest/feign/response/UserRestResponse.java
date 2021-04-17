@@ -1,4 +1,4 @@
-package com.wolox.test.infrastructure.rest.feign2.response;
+package com.wolox.test.infrastructure.rest.feign.response;
 
 import com.wolox.test.domain.User;
 import lombok.Data;

@@ -11,11 +11,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.H2Dialect
+        ddl-auto: create-drop
     database-platform: org.hibernate.dialect.H2Dialect
-    h2:
-      console:
-        enabled: true
-        path: /h2-console
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 
 feign:
@@ -29,11 +30,4 @@ feign:
     comments: comments
     posts: posts
 
-
-logging:
-  level:
-    org.springframework.jdbc.core.JdbcTemplate: DEBUG
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    net.sf.jasperreports: DEBUG
     

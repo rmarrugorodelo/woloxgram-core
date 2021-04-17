@@ -9,4 +9,7 @@ public interface AlbumGateway {
     List<Album> findAll();
 
     List<Album> findByUserId(Long userId);
+
+    Album findById(Long id);
+
 }
