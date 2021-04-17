@@ -1,6 +1,7 @@
 package com.wolox.test.infrastructure.database;
 
 import com.wolox.test.domain.Album;
+import com.wolox.test.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -37,4 +38,18 @@ public class AlbumEntity {
                 .userId(album.getUser().getId())
                 .build();
     }
+
+    public Album toDomain() {
+        return Album
+                .builder()
+                .id(id)
+                .user(User
+                        .builder()
+                        .id(id)
+                        .build()
+                )
+                .title(title)
+                .build();
+    }
+
 }

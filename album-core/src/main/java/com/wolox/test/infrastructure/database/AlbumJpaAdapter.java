@@ -2,8 +2,11 @@ package com.wolox.test.infrastructure.database;
 
 import com.wolox.test.application.port.output.AlbumRepository;
 import com.wolox.test.domain.AlbumPrivilege;
-import com.wolox.test.infrastructure.database.entity.UserEntity;
+import com.wolox.test.domain.Privilege;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class AlbumJpaAdapter implements AlbumRepository {
@@ -37,6 +40,14 @@ public class AlbumJpaAdapter implements AlbumRepository {
     @Override
     public void deleteByUserIdAndAlbumId(Long userId, Long albumId) {
         albumPrivilegeJpaRepository.deleteByUserIdAndAlbumId(userId, albumId);
+    }
+
+    @Override
+    public List<AlbumPrivilege> findByAlbumAndPrivilege(Long albumId, Privilege privilege) {
+        return albumPrivilegeJpaRepository.findByAlbumIdAndPrivilege(albumId, privilege)
+                .parallelStream()
+                .map(AlbumPrivilegeEntity::toDomain)
+                .collect(Collectors.toList());
     }
 
 }

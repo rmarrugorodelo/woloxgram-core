@@ -1,7 +1,7 @@
 package com.wolox.test.infrastructure.database;
 
-import com.wolox.test.domain.PrivilegeEnum;
-import com.wolox.test.infrastructure.database.entity.UserEntity;
+import com.wolox.test.domain.AlbumPrivilege;
+import com.wolox.test.domain.Privilege;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,7 +42,16 @@ public class AlbumPrivilegeEntity {
     private UserEntity user;
 
     @Enumerated(EnumType.STRING)
-    private PrivilegeEnum privilege;
+    private Privilege privilege;
+
+    public AlbumPrivilege toDomain() {
+        return AlbumPrivilege
+                .builder()
+                .id(id)
+                .user(user.toDomain())
+                .album(album.toDomain())
+                .build();
+    }
 
 
 }

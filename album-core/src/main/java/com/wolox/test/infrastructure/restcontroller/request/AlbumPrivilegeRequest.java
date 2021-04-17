@@ -1,7 +1,7 @@
 package com.wolox.test.infrastructure.restcontroller.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.wolox.test.domain.PrivilegeEnum;
+import com.wolox.test.domain.Privilege;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
@@ -20,10 +20,10 @@ public class AlbumPrivilegeRequest {
     @NotEmpty
     private Set<String> privileges;
 
-    public Set<PrivilegeEnum> toPrivilegeDomain() {
+    public Set<Privilege> toPrivilegeDomain() {
         return privileges
                 .parallelStream()
-                .map(PrivilegeEnum::fromString)
+                .map(Privilege::fromString)
                 .collect(Collectors.toSet());
     }
 

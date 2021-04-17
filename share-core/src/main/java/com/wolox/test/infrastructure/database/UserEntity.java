@@ -1,4 +1,4 @@
-package com.wolox.test.infrastructure.database.entity;
+package com.wolox.test.infrastructure.database;
 
 import com.wolox.test.domain.User;
 import lombok.AllArgsConstructor;
@@ -33,5 +33,15 @@ public class UserEntity {
                 .username(user.getUsername())
                 .build();
     }
+
+    public User toDomain() {
+        return User
+                .builder()
+                .id(id)
+                .name(name)
+                .username(username)
+                .build();
+    }
+
 
 }

@@ -10,6 +10,6 @@ public class AlbumPrivilege {
     Long id;
     Album album;
     User user;
-    PrivilegeEnum privilege;
+    Privilege privilege;
 
 }

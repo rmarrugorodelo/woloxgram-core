@@ -1,12 +1,12 @@
 package com.wolox.test.application;
 
-import com.wolox.test.application.port.input.CreatePrivilegeForUserCommand;
+import com.wolox.test.application.port.input.AssignPrivilegeForUserCommand;
 import com.wolox.test.application.port.output.AlbumGateway;
 import com.wolox.test.application.port.output.AlbumRepository;
 import com.wolox.test.application.port.output.UserGateway;
 import com.wolox.test.domain.Album;
 import com.wolox.test.domain.AlbumPrivilege;
-import com.wolox.test.domain.PrivilegeEnum;
+import com.wolox.test.domain.Privilege;
 import com.wolox.test.domain.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Set;
 
 @Service
-public class CreatePrivilegeForUserUseCase implements CreatePrivilegeForUserCommand {
+public class AssignPrivilegeForUserUseCase implements AssignPrivilegeForUserCommand {
 
     private final AlbumRepository albumRepository;
 
@@ -22,7 +22,7 @@ public class CreatePrivilegeForUserUseCase implements CreatePrivilegeForUserComm
 
     private final UserGateway userGateway;
 
-    public CreatePrivilegeForUserUseCase(AlbumRepository albumRepository,
+    public AssignPrivilegeForUserUseCase(AlbumRepository albumRepository,
                                          AlbumGateway albumGateway,
                                          UserGateway userGateway) {
         this.albumRepository = albumRepository;
@@ -32,7 +32,7 @@ public class CreatePrivilegeForUserUseCase implements CreatePrivilegeForUserComm
 
     @Transactional
     @Override
-    public void execute(Long userId, Long albumId, Set<PrivilegeEnum> privileges) {
+    public void execute(Long userId, Long albumId, Set<Privilege> privileges) {
         albumRepository.deleteByUserIdAndAlbumId(userId, albumId);
         User user = userGateway.findById(userId);
         Album album = albumGateway.findById(albumId);
