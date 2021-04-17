@@ -33,9 +33,9 @@ public class AssignPrivilegeForUserUseCase implements AssignPrivilegeForUserComm
     @Transactional
     @Override
     public void execute(Long userId, Long albumId, Set<Privilege> privileges) {
-        albumRepository.deleteByUserIdAndAlbumId(userId, albumId);
         User user = userGateway.findById(userId);
         Album album = albumGateway.findById(albumId);
+        albumRepository.deleteByUserIdAndAlbumId(userId, albumId);
         privileges.forEach(privilege ->
                 albumRepository.save(AlbumPrivilege.builder()
                         .album(album)

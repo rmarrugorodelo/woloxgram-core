@@ -24,6 +24,8 @@ public class UserEntity {
     private Long id;
     private String name;
     private String username;
+    private String email;
+    private String phone;
 
     public static UserEntity of(User user) {
         return UserEntity
@@ -31,6 +33,8 @@ public class UserEntity {
                 .id(user.getId())
                 .name(user.getName())
                 .username(user.getUsername())
+                .phone(user.getPhone())
+                .email(user.getEmail())
                 .build();
     }
 
@@ -40,6 +44,8 @@ public class UserEntity {
                 .id(id)
                 .name(name)
                 .username(username)
+                .phone(phone)
+                .email(email)
                 .build();
     }
 

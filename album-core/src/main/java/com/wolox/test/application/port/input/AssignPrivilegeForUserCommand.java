@@ -7,5 +7,4 @@ import java.util.Set;
 public interface AssignPrivilegeForUserCommand {
 
     void execute(Long userId, Long albumId, Set<Privilege> privileges);
-
 }
