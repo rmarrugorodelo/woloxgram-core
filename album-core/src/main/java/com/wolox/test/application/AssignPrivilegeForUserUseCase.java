@@ -8,6 +8,7 @@ import com.wolox.test.domain.Album;
 import com.wolox.test.domain.AlbumPrivilege;
 import com.wolox.test.domain.Privilege;
 import com.wolox.test.domain.User;
+import com.wolox.test.domain.exception.UserIsOwnerException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,8 @@ import java.util.Set;
 
 @Service
 public class AssignPrivilegeForUserUseCase implements AssignPrivilegeForUserCommand {
+
+    private static final String USER_IS_OWNER_MESSAGE = "El usuario ingresado es dueño del album";
 
     private final AlbumRepository albumRepository;
 
@@ -33,8 +36,9 @@ public class AssignPrivilegeForUserUseCase implements AssignPrivilegeForUserComm
     @Transactional
     @Override
     public void execute(Long userId, Long albumId, Set<Privilege> privileges) {
-        User user = userGateway.findById(userId);
         Album album = albumGateway.findById(albumId);
+        validateIfUserIsOwner(album, userId);
+        User user = userGateway.findById(userId);
         albumRepository.deleteByUserIdAndAlbumId(userId, albumId);
         privileges.forEach(privilege ->
                 albumRepository.save(AlbumPrivilege.builder()
@@ -43,6 +47,11 @@ public class AssignPrivilegeForUserUseCase implements AssignPrivilegeForUserComm
                         .privilege(privilege)
                         .build())
         );
+    }
 
+    private void validateIfUserIsOwner(Album album, Long userId) {
+        if(album.getUser().getId().equals(userId)) {
+            throw new UserIsOwnerException(USER_IS_OWNER_MESSAGE);
+        }
     }
 }

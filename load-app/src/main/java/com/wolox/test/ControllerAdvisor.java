@@ -2,6 +2,7 @@ package com.wolox.test;
 
 import com.wolox.test.domain.ErrorResponse;
 import com.wolox.test.domain.exception.BadRequestException;
+import com.wolox.test.domain.exception.UserIsOwnerException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -70,5 +71,19 @@ public class ControllerAdvisor {
                 .path(request.getRequestURL().toString())
                 .build(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(UserIsOwnerException.class)
+    public ResponseEntity<ErrorResponse> handleUserIsOwnerException(UserIsOwnerException ex,
+                                                                   HttpServletRequest request) {
+        return new ResponseEntity<>(ErrorResponse
+                .builder()
+                .timestamp(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .path(request.getRequestURL().toString())
+                .build(), HttpStatus.BAD_REQUEST);
+    }
+
 
 }
